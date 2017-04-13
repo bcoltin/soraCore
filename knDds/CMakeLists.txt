@@ -29,7 +29,9 @@ set( KNDDS_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "KNDDS install pa
 #---------------------------------------------
 # make RTI DDS optional
 add_build_var( WITH_DDS NOT APPLE )
-find_package_if( RtiDds KNDDS_BUILD_WITH_DDS  )
+#find_package_if( RtiDds KNDDS_BUILD_WITH_DDS  )
+set(RTIDDS_FOUND True)
+set(KNDDS_BUILD_WITH_DDS True)
 
 find_package( ACE )
 find_package( Qt4 )

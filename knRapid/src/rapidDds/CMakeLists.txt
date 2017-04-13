@@ -13,6 +13,12 @@ file( GLOB RTIDDS_IDL_GENERATED_XMLS "${CMAKE_CURRENT_SOURCE_DIR}/generated/*.xm
 file( GLOB RTIDDS_IDL_GENERATED_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/generated/*.h" )
 file( GLOB RTIDDS_IDL_GENERATED "${CMAKE_CURRENT_SOURCE_DIR}/generated/*.cxx" )
 
+# copy to binary directory so other packages can find headers which are no longer generated
+foreach( IDL_HEADER ${RTIDDS_IDL_GENERATED_HEADERS} )
+    get_filename_component( IDL_BASE ${IDL_HEADER} NAME )
+    configure_file(${IDL_HEADER} ${CMAKE_CURRENT_BINARY_DIR}/${IDL_BASE} COPYONLY)
+endforeach( IDL_HEADER ${RTIDDS_IDL_GENERATED_HEADERS} )
+
 include_directories( ${RTIDDS_INCLUDE_DIR} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/generated )
 link_libraries( ${RTIDDS_LIBRARIES} )
