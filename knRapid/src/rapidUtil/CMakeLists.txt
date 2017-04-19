@@ -40,7 +40,9 @@ include_directories(
 )
 
 link_libraries(
-  ${MIRO_miroXml_LIBRARY}  
+  ${MIRO_LIBRARIES}  
+  ${ACE_LIBRARIES}  
+  ${Boost_SYSTEM_LIBRARY}  
 )
 
 

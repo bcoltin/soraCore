@@ -14,17 +14,6 @@ include(SetIrgPaths)
 
 ## have a look in irg packages dir if BOOST_ROOT and BOOST_ROOT
 ## environment variable is not already set 
-if( NOT BOOST_ROOT ) 
-  set( BOOST_ROOT_ENV $ENV{BOOST_ROOT} )
-  if( BOOST_ROOT_ENV )
-    set( BOOST_ROOT ${BOOST_ROOT_ENV} )
-  else( BOOST_ROOT_ENV )
-    include( SetIrgPaths )
-    set( BOOST_ROOT ${IRG_PACKAGES_DIR}/boost )
-    message( STATUS  "Setting BOOST_ROOT to ${BOOST_ROOT}" )
-  endif( BOOST_ROOT_ENV )
-endif( NOT BOOST_ROOT )
-
 ## create variable to hold find_package options
 set( BOOST_FIND_OPTIONS "" )
 if( Boost_FIND_VERSION )

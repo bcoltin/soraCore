@@ -38,6 +38,7 @@ link_libraries (
   rapidFrameStore
   rapidUtil
   ${MIRO_miroXml_LIBRARY}
+  ${Boost_CHRONO_LIBRARY}
 )
 
 if ( RTIDDS_FOUND )

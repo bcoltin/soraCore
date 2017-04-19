@@ -70,6 +70,7 @@ link_libraries(
   ${KN_knShare_LIBRARY}  
   ${MIRO_miroXml_LIBRARY}  
   ${KNDDS_knDds_LIBRARY}  
+  ${Boost_CHRONO_LIBRARY}
 )
 
 

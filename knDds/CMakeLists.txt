@@ -29,15 +29,13 @@ set( KNDDS_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "KNDDS install pa
 #---------------------------------------------
 # make RTI DDS optional
 add_build_var( WITH_DDS NOT APPLE )
-#find_package_if( RtiDds KNDDS_BUILD_WITH_DDS  )
-set(RTIDDS_FOUND True)
-set(KNDDS_BUILD_WITH_DDS True)
+find_package_if( RtiDds KNDDS_BUILD_WITH_DDS  )
 
 find_package( ACE )
 find_package( Qt4 )
 find_package( PThreads-win32 )
 
-find_package( Boost 1.50.0 COMPONENTS program_options filesystem system chrono)
+find_package( Boost 1.50.0 COMPONENTS program_options filesystem system chrono thread )
 
 find_package( Miro )
 find_package( kn )

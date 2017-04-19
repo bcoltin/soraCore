@@ -216,6 +216,10 @@ if( RTIDDS_IDL_COMMAND )
     nddscpp
   )
   get_library_list(RTIDDS ${RTIDDS_LIBRARY_DIR} "d" "${RTIDDS_LIBRARY_NAMES}" TRUE)
+  # include dirs not set there
+  foreach( LIBRARY_NAME ${RTIDDS_LIBRARIES} ) 
+    set_property(TARGET ${LIBRARY_NAME} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${RTIDDS_INCLUDE_DIR}")
+  endforeach( LIBRARY_NAME ${RTIDDS_LIBRARIES} ) 
   
   # Find NDDS version by looking at ndds_version.h
   #--------------------------------------------------
@@ -252,7 +256,9 @@ if( RTIDDS_IDL_COMMAND )
   if(UNIX)
     find_library( RTIDDS_LIBDL dl )
     if( RTIDDS_LIBDL )
-      set( RTIDDS_LIBRARIES ${RTIDDS_LIBRARIES} ${RTIDDS_LIBDL} )
+      add_library(RTIDDS_dl UNKNOWN IMPORTED )
+      set_property(TARGET RTIDDS_dl PROPERTY IMPORTED_LOCATION "${RTIDDS_LIBDL}" )
+      set( RTIDDS_LIBRARIES ${RTIDDS_LIBRARIES} RTIDDS_dl )
     endif( RTIDDS_LIBDL )
   endif(UNIX)
   
@@ -299,6 +305,10 @@ if( RTIDDS_IDL_COMMAND )
   endif(RTIDDS_VERSION)
   
   get_library_list(RTIDDS_LB ${RTIDDS_LIBRARY_DIR} "d" "${RTIDDS_LB_LIBRARY_NAMES}" TRUE)
+  # include dirs not set there
+  foreach( LIBRARY_NAME ${RTIDDS_LB_LIBRARIES} ) 
+    set_property(TARGET ${LIBRARY_NAME} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${RTIDDS_INCLUDE_DIR}")
+  endforeach( LIBRARY_NAME ${RTIDDS_LB_LIBRARIES} ) 
   
   if( RTIDDS_LB_MISSING_LIBRARIES )
     set( RTIDDS_LB_FOUND FALSE )
@@ -334,6 +344,10 @@ if( RTIDDS_IDL_COMMAND )
     rtimonitoring
   )
   get_library_list(RTIDDS_MON ${RTIDDS_LIBRARY_DIR} "d" "${RTIDDS_MON_LIBRARY_NAMES}" TRUE)
+  # include dirs not set there
+  foreach( LIBRARY_NAME ${RTIDDS_MON_LIBRARIES} ) 
+    set_property(TARGET ${LIBRARY_NAME} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${RTIDDS_INCLUDE_DIR}")
+  endforeach( LIBRARY_NAME ${RTIDDS_MON_LIBRARIES} ) 
   
   if( RTIDDS_MON_MISSING_LIBRARIES )
     set( RTIDDS_MON_FOUND FALSE )
@@ -352,6 +366,10 @@ if( RTIDDS_IDL_COMMAND )
     rtidlcpp
   )
   get_library_list(RTIDDS_DLOGGER ${RTIDDS_LIBRARY_DIR} "d" "${RTIDDS_DLOGGER_LIBRARY_NAMES}" TRUE)
+  # include dirs not set there
+  foreach( LIBRARY_NAME ${RTIDDS_LOGGER_LIBRARIES} ) 
+    set_property(TARGET ${LIBRARY_NAME} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${RTIDDS_INCLUDE_DIR}")
+  endforeach( LIBRARY_NAME ${RTIDDS_LOGGER_LIBRARIES} ) 
   
   if( RTIDDS_DLOGGER_MISSING_LIBRARIES )
     set( RTIDDS_DLOGGER_FOUND FALSE )

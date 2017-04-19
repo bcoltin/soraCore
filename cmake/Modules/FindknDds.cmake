@@ -21,6 +21,7 @@ set( KNDDS_IDL_DIR ${KNDDS_ROOT_DIR}/idl )
 
 set( LIBRARY_NAMES
   knDds
+  knDdsUtil
 )
 get_library_list(KNDDS ${KNDDS_LIBRARY_DIR} "d" "${LIBRARY_NAMES}")
 

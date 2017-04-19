@@ -69,8 +69,10 @@ link_libraries(
   rapidDds
   rapidUtil
   ${KN_knMath_LIBRARY}
-  ${MIRO_miroXml_LIBRARY}
+  ${MIRO_LIBRARIES}
   ${KNDDS_knDds_LIBRARY}
+  ${ACE_LIBRARIES}
+  ${Boost_THREAD_LIBRARIES}
 )
 
 

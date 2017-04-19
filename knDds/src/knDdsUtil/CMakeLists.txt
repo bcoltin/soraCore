@@ -29,6 +29,8 @@ include_directories(
 
 link_libraries(
   knDds  
+  ${MIRO_LIBRARIES}
+  ${RTIDDS_LIBRARIES}
 )
 
 add_srcdir_definitions(${RTIDDS_DEFINES} RTIDDS_FOUND )

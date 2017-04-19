@@ -36,12 +36,13 @@ set( RAPID_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "RAPID install pa
 # make RTI DDS optional
 add_build_var( WITH_DDS NOT APPLE )
 find_package_if( RtiDds KNRAPID_BUILD_WITH_DDS  )
+link_directories( ${RTIDDS_LIBRARY_DIR} )
 
 find_package( ACE )
 find_package( Qt4 )
 find_package( PThreads-win32 )
 
-find_package( Boost 1.50.0 COMPONENTS program_options filesystem system thread bind function)
+find_package( Boost 1.50.0 COMPONENTS program_options filesystem system thread chrono)
 find_package( Eigen3 )
 find_package( Threads )
 

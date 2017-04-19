@@ -38,55 +38,18 @@ macro( get_pkg_library PKG_PREFIX LIBRARY_DIR DEBUG_POSTFIX LIBRARY_NAME GET_DEB
     find_library( ${RELEASE_VAR_NAME} ${ACTUAL_NAME} ${LIBRARY_DIR} NO_DEFAULT_PATH )
   endif( NOT ${RELEASE_VAR_NAME} )
 
-  if( NOT GET_DEBUG_AND_RELEASE )
-
-    if(${RELEASE_VAR_NAME})
-      mark_as_advanced( ${RELEASE_VAR_NAME} )
-      set( ${LIBRARY_VAR_NAME} ${${RELEASE_VAR_NAME}} )
-    else(${RELEASE_VAR_NAME}) 
-      set( ${PKG_PREFIX}_MISSING_LIBRARIES ${${PKG_PREFIX}_MISSING_LIBRARIES} ${LIBRARY_VAR_NAME} )
-    endif(${RELEASE_VAR_NAME})
-
-  else( NOT GET_DEBUG_AND_RELEASE ) #-- on Windows we need to distinguish between optimized and debug
-
-    if(${RELEASE_VAR_NAME})
-      mark_as_advanced( ${RELEASE_VAR_NAME} )
-    else(${RELEASE_VAR_NAME})
-      set( ${PKG_PREFIX}_MISSING_LIBRARIES "${${PKG_PREFIX}_MISSING_LIBRARIES} ${RELEASE_VAR_NAME}" )
-    endif(${RELEASE_VAR_NAME})
-
-    ##-- debug libraries
-    ##-------------------
-    set( DEBUG_VAR_NAME ${PKG_PREFIX}_${LIBRARY_NAME}_LIBRARY_DEBUG )
-    if( NOT ${DEBUG_VAR_NAME} ) ## only search for it if it hasn't been found already
-      find_library( ${DEBUG_VAR_NAME} ${ACTUAL_NAME}${DEBUG_POSTFIX} ${LIBRARY_DIR} NO_DEFAULT_PATH )
-    endif( NOT ${DEBUG_VAR_NAME} )
-
-    if(${DEBUG_VAR_NAME})
-      mark_as_advanced( ${DEBUG_VAR_NAME} )
-    else(${DEBUG_VAR_NAME})
-      set( ${PKG_PREFIX}_MISSING_LIBRARIES "${${PKG_PREFIX}_MISSING_LIBRARIES} ${DEBUG_VAR_NAME}" )
-    endif(${DEBUG_VAR_NAME})
-
-    ##-- set user var
-    ##----------------------
-    set(TEMP_VAR "")
-
-    if( ${RELEASE_VAR_NAME} )
-      set( TEMP_VAR optimized ${${RELEASE_VAR_NAME}} )
-    endif( ${RELEASE_VAR_NAME} )
-
-    if( ${DEBUG_VAR_NAME} )
-      set( TEMP_VAR ${TEMP_VAR} debug ${${DEBUG_VAR_NAME}} )
-    endif( ${DEBUG_VAR_NAME} )
-
-    if(NOT TEMP_VAR)
-      set(TEMP_VAR NOTFOUND)
-    endif(NOT TEMP_VAR)
-    
-    set( ${LIBRARY_VAR_NAME} ${TEMP_VAR})
-
-  endif( NOT GET_DEBUG_AND_RELEASE ) 
+  if(${RELEASE_VAR_NAME})
+    mark_as_advanced( ${RELEASE_VAR_NAME} )
+    set( ${LIBRARY_VAR_NAME} ${${RELEASE_VAR_NAME}} )
+  else(${RELEASE_VAR_NAME}) 
+    set( ${PKG_PREFIX}_MISSING_LIBRARIES ${${PKG_PREFIX}_MISSING_LIBRARIES} ${LIBRARY_VAR_NAME} )
+  endif(${RELEASE_VAR_NAME})
+  # create target, so we don't use absolute paths to libraries on export
+  if( ${LIBRARY_VAR_NAME} )
+    add_library(${LIBRARY_NAME} UNKNOWN IMPORTED )
+    set_property(TARGET ${LIBRARY_NAME} PROPERTY IMPORTED_LOCATION "${${LIBRARY_VAR_NAME}}" )
+    set( ${LIBRARY_VAR_NAME} ${LIBRARY_NAME})
+  endif( ${LIBRARY_VAR_NAME} ) 
 endmacro(get_pkg_library)
 
 ##
