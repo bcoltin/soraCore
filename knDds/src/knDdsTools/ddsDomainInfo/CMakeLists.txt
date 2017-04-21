@@ -34,6 +34,13 @@ include_directories(
 )
 link_libraries(
   knDds
+  ${MIRO_LIBRARIES}
+  ${QT_QTGUI_LIBRARIES}
+  ${QT_QTXML_LIBRARIES}
+  ${QT_QTCORE_LIBRARIES}
+  ${QT_QTNETWORK_LIBRARIES}
+  ${ACE_LIBRARIES}
+  ${RTIDDS_LIBRARIES}
 )
 
 add_srcdir_definitions( ${RTIDDS_DEFINES} )
